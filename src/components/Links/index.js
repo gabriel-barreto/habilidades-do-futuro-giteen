@@ -6,23 +6,25 @@ import * as S from './styled';
 
 function Links({ entries }) {
   return (
-    <S.LinksWrapper>
-      {entries.map(each => (
-        <S.LinkItem>
-          <S.Link
-            key={each.url}
-            href={each.url}
-            title={each.label}
-            alt={each.label}
-          >
-            <S.LinkIcon>
-              <Icon />
-            </S.LinkIcon>
-            <S.LinkLabel>{each.label}</S.LinkLabel>
-          </S.Link>
-        </S.LinkItem>
-      ))}
-    </S.LinksWrapper>
+    <S.LinksContainer title="Links da Aula">
+      <S.LinksWrapper>
+        {entries.map(each => (
+          <S.LinkItem key={each.url}>
+            <S.Link
+              key={each.url}
+              href={each.url}
+              title={each.label}
+              alt={each.label}
+            >
+              <S.LinkIcon>
+                <Icon />
+              </S.LinkIcon>
+              <S.LinkLabel>{each.label}</S.LinkLabel>
+            </S.Link>
+          </S.LinkItem>
+        ))}
+      </S.LinksWrapper>
+    </S.LinksContainer>
   );
 }
 

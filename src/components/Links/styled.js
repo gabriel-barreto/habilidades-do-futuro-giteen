@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 
-export const LinksWrapper = styled.ul`
-  padding: 3.2rem;
+import Wrapper from '../Wrapper';
+
+export const LinksContainer = styled(Wrapper)`
+  padding: 4rem 3.2rem;
+  @media (min-width: 1024px) {
+    padding: 0;
+  }
 `;
+
+export const LinksWrapper = styled.ul``;
 
 export const LinkItem = styled.li``;
 
