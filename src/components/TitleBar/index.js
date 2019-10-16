@@ -8,8 +8,10 @@ function TitleBar({ lesson }) {
   return (
     <S.TitleBarWrapper>
       <S.TitleBarBrand {...Content.brand} />
-      <S.TitleBarLessonTitle>{lesson}</S.TitleBarLessonTitle>
-      <S.TitleBarButton>Entrar no Grupo</S.TitleBarButton>
+      <S.TitleBarTitleWrapper>
+        <S.TitleBarTitleDesc>Tema da Aula:</S.TitleBarTitleDesc>
+        <S.TitleBarLessonTitle>{lesson}</S.TitleBarLessonTitle>
+      </S.TitleBarTitleWrapper>
     </S.TitleBarWrapper>
   );
 }
