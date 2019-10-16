@@ -132,6 +132,14 @@ const GlobalStyles = createGlobalStyle`
       border-spacing: 0;
   }
 
+  button, a {
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
   *::before,
   *,
   *::after {
