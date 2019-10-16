@@ -4,12 +4,12 @@ import Helmet from 'react-helmet';
 
 import DefaultMeta from './content';
 
-function SEO({ author, description, lang, meta, title }) {
+function SEO({ author, description, lang, meta, name, title }) {
   return (
     <Helmet
       htmlAttributes={{ lang }}
       title={title}
-      titleTemplate="%s | Casa da Pizza"
+      titleTemplate={`%s | ${name}`}
       meta={[
         {
           name: 'description',
@@ -55,6 +55,7 @@ SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
+  name: PropTypes.string,
   title: PropTypes.string.isRequired,
 };
 
