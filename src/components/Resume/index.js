@@ -5,10 +5,14 @@ import * as S from './styled';
 
 function Resume({ className, entries }) {
   return (
-    <S.ResumeWrapper className={className}>
-      {entries.map((each, index) => (
-        <S.ResumeContent key={index}>{each}</S.ResumeContent>
-      ))}
+    <S.ResumeWrapper className={`resume ${className}`} title="Resumo da Aula">
+      {entries.map((each, index) =>
+        each ? (
+          <S.ResumeContent key={index}>{each}</S.ResumeContent>
+        ) : (
+          <S.Breakline key={index} />
+        ),
+      )}
     </S.ResumeWrapper>
   );
 }
