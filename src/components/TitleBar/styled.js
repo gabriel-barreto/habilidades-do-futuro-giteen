@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TitleBarWrapper = styled.div`
   align-items: center;
-  background: linear-gradient(to right bottom, var(--dark), var(--darkest));
+  background-color: var(--darkest);
   box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.24);
   display: flex;
   justify-content: space-between;
@@ -12,7 +12,7 @@ export const TitleBarWrapper = styled.div`
 
 export const TitleBarLessonTitle = styled.h2`
   color: var(--lightest);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   line-height: 120%;
   margin: 0 1.6rem;
   width: 100%;
