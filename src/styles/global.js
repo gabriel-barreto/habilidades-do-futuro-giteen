@@ -144,7 +144,7 @@ const GlobalStyles = createGlobalStyle`
   *,
   *::after {
       box-sizing: border-box;
-      font-family: "Titilium Web", "Roboto", Helvetica, Arial, sans-serif;
+      font-family: "Titillium Web", "Roboto", Helvetica, Arial, sans-serif;
       font-size: 10px;
       font-stretch: normal;
       font-style: normal;
