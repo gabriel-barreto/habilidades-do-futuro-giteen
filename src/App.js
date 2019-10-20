@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import { GlobalStyle } from './styles';
 
 import GroupButton from './components/GroupButton';
-import Links from './components/Links';
 import Layout from './components/Layout';
+import LessonsBar from './components/LessonsBar';
+import Links from './components/Links';
 import Video from './components/Video';
 import Resume from './components/Resume';
 import TitleBar from './components/TitleBar';
@@ -118,6 +119,7 @@ function App() {
       <GlobalStyle />
       <Layout title="Aula 1">
         <TitleBar lesson="Público e Mercado" />
+        <LessonsBar />
         <VideoContainer>
           <Video
             src="https://sveltejs.github.io/assets/caminandes-llamigos.mp4"
