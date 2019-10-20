@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// import { $lesson } from './services';
+
 import { GlobalStyle } from './styles';
 
 import GroupButton from './components/GroupButton';
@@ -113,28 +115,44 @@ const BottomResume = styled(Resume)`
   }
 `;
 
-function App() {
-  return (
-    <AppContainer className="App">
-      <GlobalStyle />
-      <Layout title="Aula 1">
-        <TitleBar lesson="Público e Mercado" />
-        <LessonsBar />
-        <VideoContainer>
-          <Video
-            src="https://sveltejs.github.io/assets/caminandes-llamigos.mp4"
-            title="Aula 1 - Público e Mercado"
-          />
-          <Resume entries={contents} />
-        </VideoContainer>
-        <VideoInfoContainer>
-          <Links entries={links} />
-          <GroupButton url="http://google.com" />
-        </VideoInfoContainer>
-        <BottomResume entries={contents} />
-      </Layout>
-    </AppContainer>
-  );
+class App extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      lessons: [],
+      active: {
+        title: 'Público e Mercado',
+        step: 1,
+        video: 'https://sveltejs.github.io/assets/caminandes-llamigos.mp4',
+      },
+    };
+  }
+
+  render() {
+    const {
+      lessons,
+      active: { step, title, video },
+    } = this.state;
+    return (
+      <AppContainer className="App">
+        <GlobalStyle />
+        <Layout title={`Aula ${step}`}>
+          <TitleBar lesson={title} />
+          <LessonsBar lessons={lessons} />
+          <VideoContainer>
+            <Video src={video} title={`Aula ${step} - ${title}`} />
+            <Resume entries={contents} />
+          </VideoContainer>
+          <VideoInfoContainer>
+            <Links entries={links} />
+            <GroupButton url="http://google.com" />
+          </VideoInfoContainer>
+          <BottomResume entries={contents} />
+        </Layout>
+      </AppContainer>
+    );
+  }
 }
 
 export default App;
