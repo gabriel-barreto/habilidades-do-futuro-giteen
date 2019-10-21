@@ -7,6 +7,7 @@ function Video({ title, src }) {
   return (
     <S.Wrapper>
       <S.Video
+        id="player"
         src={src}
         title={title}
         alt={title}
