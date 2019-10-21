@@ -59,15 +59,35 @@ export const LessonsBarWrapper = styled.ul`
   }
 `;
 
+const afterItemStep = css`
+  content: 'bloqueado!';
+  display: block;
+  color: var(--primaryColor);
+  font-size: 1.4em;
+  font-weight: 600;
+  position: absolute;
+  right: 16px;
+  text-transform: uppercase;
+  top: 16px;
+  width: fit-content;
+`;
+
 export const LessonItem = styled.li`
   background-color: var(--dark);
   border-radius: 4px;
   cursor: not-allowed;
   box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.24);
   padding: 1.6rem;
+  position: relative;
   transition: background-color 400ms;
   z-index: 1;
   will-change: background-color;
+
+  &:not(.--active) {
+    ::after {
+      ${afterItemStep}
+    }
+  }
 
   &.--active {
     background-color: var(--primaryColor);
@@ -97,6 +117,6 @@ export const LessonItemTitle = styled.p`
 
 export const LessonItemStep = styled.span`
   color: rgba(255, 200, 19, 0.4);
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   will-change: color 400ms;
 `;
