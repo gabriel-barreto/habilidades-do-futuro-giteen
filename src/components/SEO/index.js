@@ -9,7 +9,7 @@ function SEO({ author, description, lang, meta, name, title }) {
     <Helmet
       htmlAttributes={{ lang }}
       title={title}
-      titleTemplate={`%s | ${name}`}
+      titleTemplate={title ? `%s | ${name}` : name}
       meta={[
         {
           name: 'description',

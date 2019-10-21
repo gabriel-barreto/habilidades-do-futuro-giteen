@@ -9,8 +9,12 @@ function TitleBar({ lesson }) {
     <S.TitleBarWrapper>
       <S.TitleBarBrand {...Content.brand} />
       <S.TitleBarTitleWrapper>
-        <S.TitleBarTitleDesc>Tema da Aula:</S.TitleBarTitleDesc>
-        <S.TitleBarLessonTitle>{lesson}</S.TitleBarLessonTitle>
+        {lesson ? (
+          <>
+            <S.TitleBarTitleDesc>Tema da Aula:</S.TitleBarTitleDesc>
+            <S.TitleBarLessonTitle>{lesson}</S.TitleBarLessonTitle>
+          </>
+        ) : null}
       </S.TitleBarTitleWrapper>
     </S.TitleBarWrapper>
   );

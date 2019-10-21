@@ -18,8 +18,8 @@ function App() {
   const [state, setState] = useState({
     lessons: [],
     active: {
+      step: null,
       title: 'Público e Mercado',
-      step: 1,
       video: 'https://sveltejs.github.io/assets/caminandes-llamigos.mp4',
     },
     loading: true,
@@ -30,7 +30,10 @@ function App() {
     $lesson
       .fetch()
       .then(payload => {
-        const active = payload.find(each => each.active);
+        const active = payload.find(each => each.active) || {
+          step: null,
+          title: '',
+        };
         setState(prev => ({ ...prev, active, lessons: payload }));
       })
       .catch(err => {
@@ -66,21 +69,25 @@ function App() {
     <S.AppContainer className="App">
       <GlobalStyle />
       {state.lessons.length > 0 ? (
-        <Layout title={`Aula ${state.active.step}`}>
-          <TitleBar lesson={state.active.title} />
+        <Layout title={state.active.step ? `Aula ${state.active.step}` : ''}>
+          <TitleBar lesson={state.active.title ? state.active.title : ''} />
           <LessonsBar lessons={state.lessons} onClick={onSelectLesson} />
-          <S.VideoContainer>
-            <Video
-              src={state.active.video}
-              title={`Aula ${state.active.step} - ${state.active.title}`}
-            />
-            <Resume entries={state.active.resume} />
-          </S.VideoContainer>
-          <S.VideoInfoContainer>
-            <Links entries={state.active.links} />
-            <GroupButton url="http://google.com" />
-          </S.VideoInfoContainer>
-          <S.BottomResume entries={state.active.resume} />
+          {state.active.step !== null ? (
+            <>
+              <S.VideoContainer>
+                <Video
+                  src={state.active.video}
+                  title={`Aula ${state.active.step} - ${state.active.title}`}
+                />
+                <Resume entries={state.active.resume} />
+              </S.VideoContainer>
+              <S.VideoInfoContainer>
+                <Links entries={state.active.links} />
+                <GroupButton url="http://google.com" />
+              </S.VideoInfoContainer>
+              <S.BottomResume entries={state.active.resume} />
+            </>
+          ) : null}
         </Layout>
       ) : null}
       <Loader active={state.loading} />
