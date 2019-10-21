@@ -11,6 +11,8 @@ function Links({ entries }) {
         {entries.map(each => (
           <S.LinkItem key={each.url}>
             <S.Link
+              target="blank"
+              rel="noreferrer noopener"
               key={each.url}
               href={each.url}
               title={each.label}
