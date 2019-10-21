@@ -46,14 +46,16 @@ export const LessonsBarWrapper = styled.ul`
   }
   @media (min-width: 1024px) {
     column-gap: 2.4rem;
+    padding: 3.2rem 6.4rem 4.8rem 6.4rem;
     grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
   }
   @media (min-width: 1200px) {
-    padding: 3.2rem var(--lg);
+    padding: 3.2rem var(--lg) 4.8rem var(--lg);
   }
   @media (min-width: 1400px) {
     column-gap: 4.8rem;
-    padding: 3.2rem var(--xl);
+    padding: 3.2rem var(--xl) 4.8rem var(--xl);
   }
 `;
 
