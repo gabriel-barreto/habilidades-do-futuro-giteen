@@ -28,13 +28,15 @@ function Links({ entries }) {
   );
 }
 
+Links.defaultProps = { entries: [] };
+
 Links.propTypes = {
   entries: PropTypes.arrayOf(
     PropTypes.shape({
       url: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
     }),
-  ).isRequired,
+  ),
 };
 
 export default Links;

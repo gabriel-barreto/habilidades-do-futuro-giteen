@@ -17,11 +17,11 @@ function Resume({ className, entries }) {
   );
 }
 
-Resume.defaultProps = { className: '' };
+Resume.defaultProps = { className: '', entries: [] };
 
 Resume.propTypes = {
   className: PropTypes.string,
-  entries: PropTypes.arrayOf(PropTypes.string).isRequired,
+  entries: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Resume;
