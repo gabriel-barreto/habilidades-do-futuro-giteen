@@ -17,7 +17,7 @@ $http.interceptors.response.use(
   err => {
     if (AppConfig.mode === 'development') {
       console.warn('Fail Request');
-      console.log(err.json());
+      console.log(err.toJSON());
     }
 
     return err;
