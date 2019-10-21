@@ -60,7 +60,7 @@ export const LessonsBarWrapper = styled.ul`
 `;
 
 const afterItemStep = css`
-  content: 'bloqueado!';
+  content: 'indisponível!';
   display: block;
   color: var(--primaryColor);
   font-size: 1.4em;
