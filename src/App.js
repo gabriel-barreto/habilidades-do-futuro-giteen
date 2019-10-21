@@ -1,158 +1,91 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 
-// import { $lesson } from './services';
+import { $lesson } from './services';
 
 import { GlobalStyle } from './styles';
 
+import * as S from './styled';
 import GroupButton from './components/GroupButton';
 import Layout from './components/Layout';
 import LessonsBar from './components/LessonsBar';
 import Links from './components/Links';
+import Loader from './components/Loader';
 import Video from './components/Video';
 import Resume from './components/Resume';
 import TitleBar from './components/TitleBar';
 
-const contents = [
-  'CONCEITOS IMPORTANTES',
-  'Varejo: Produto ou serviço vendido de forma direcionada.',
-  'Concorrente direto x indireto: Concorrente direto - Empresas do mesmo segmento; Concorrente indireto - Empresas que em vendem algum produto igual ao seu.',
-  'Personas: Representações descritivas do perfil dos seus clientes.As vezes, são mais de uma persona que definem seus clientes.',
-  '',
-  'PASSO A PASSO',
-  'Responda as quatro perguntas:',
-  '1 - Quais são os problemas que o seu produto/serviço resolve?',
-  '2 - Seu produto possui um diferencial?',
-  '3 - Quem são seus concorrentes?',
-  '4 - Quem é meu cliente?',
-  '',
-  'DICAS ÚTEIS',
-  'Identifique o cenário atual da sua empresa;',
-  'Descubra seus pontos fortes e fracos;',
-  'Exponha seus diferenciais para os seus clientes;',
-  'Mantenha contato com os seus clientes;',
-  'Aproveite datas específicas para gerar conteúdos e coletar informações.',
-];
-const links = [
-  { label: 'Matriz Swot ou FOFA', url: 'http://google.com' },
-  { label: 'Ferramenta para definir personas', url: 'http://google.com.br' },
-  { label: 'Calendários de datas comemorativas', url: 'https://google.com' },
-  {
-    label: 'Metodologia SMART - Material do Sebrae',
-    url: 'https://google.com.br',
-  },
-];
+function App() {
+  const [state, setState] = useState({
+    lessons: [],
+    active: {
+      title: 'Público e Mercado',
+      step: 1,
+      video: 'https://sveltejs.github.io/assets/caminandes-llamigos.mp4',
+    },
+    loading: true,
+  });
 
-const AppContainer = styled.div`
-  background: linear-gradient(to right bottom, var(--darkest), var(--dark));
-  min-height: 100vh;
-`;
+  useEffect(() => {
+    setState(prev => ({ ...prev, loading: true }));
+    $lesson
+      .fetch()
+      .then(payload => {
+        const active = payload.find(each => each.active);
+        setState(prev => ({ ...prev, active, lessons: payload }));
+      })
+      .catch(err => {
+        console.log(err);
+        alert(
+          'Ocorreu um erro ao tentar recuperar as aulas, por favor, tente novamente mais tarde!',
+        );
+      })
+      .finally(() => {
+        setState(prev => ({ ...prev, loading: false }));
+      });
+  }, []);
 
-const VideoInfoContainer = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-  @media (min-width: 1024px) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 4rem 0;
-  }
-  @media (min-width: 1200px) {
-    margin: 0 auto;
-    max-width: 1200px;
-  }
-  @media (min-width: 1400px) {
-    max-width: 1400px;
-  }
-`;
+  function onSelectLesson(step) {
+    setState(prev => ({ ...prev, loading: true }));
 
-const VideoContainer = styled.div`
-  --lg: calc((100vw - 1200px) / 2);
-  --xl: calc((100vw - 1400px) / 2);
+    const { lessons } = state;
+    const active = lessons.find(each => each.step === step);
 
-  background-color: var(--darkest);
-  display: block;
-  height: 24rem;
+    const [{ top }] = document.querySelector('#player').getClientRects();
+    const actual = window.scrollY;
+    window.scrollTo({
+      top: top + actual - 8,
+      left: 0,
+      behavior: 'smooth',
+    });
 
-  > .resume {
-    overflow-y: scroll;
-    padding: 0 6.4rem 3.2rem 3.2rem;
-    height: 100%;
+    setState(prev => ({ ...prev, active, loading: false }));
+    return step;
   }
 
-  @media (min-width: 425px) {
-    height: 32rem;
-  }
-  @media (min-width: 768px) {
-    height: 56rem;
-  }
-  @media (min-height: 900px) {
-    height: 64rem;
-  }
-  @media (min-height: 1000px) {
-    height: 72rem;
-  }
-  @media (min-width: 1200px) {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    padding: 0 var(--lg);
-    > .resume {
-      padding: 0 0 3.2rem 3.2rem;
-    }
-  }
-  @media (min-width: 1400px) {
-    padding: 0 var(--xl);
-  }
-  @media (max-width: 1199px) {
-    > .resume {
-      display: none;
-    }
-  }
-`;
-
-const BottomResume = styled(Resume)`
-  @media (min-width: 1200px) {
-    display: none;
-  }
-`;
-
-class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      lessons: [],
-      active: {
-        title: 'Público e Mercado',
-        step: 1,
-        video: 'https://sveltejs.github.io/assets/caminandes-llamigos.mp4',
-      },
-    };
-  }
-
-  render() {
-    const {
-      lessons,
-      active: { step, title, video },
-    } = this.state;
-    return (
-      <AppContainer className="App">
-        <GlobalStyle />
-        <Layout title={`Aula ${step}`}>
-          <TitleBar lesson={title} />
-          <LessonsBar lessons={lessons} />
-          <VideoContainer>
-            <Video src={video} title={`Aula ${step} - ${title}`} />
-            <Resume entries={contents} />
-          </VideoContainer>
-          <VideoInfoContainer>
-            <Links entries={links} />
+  return (
+    <S.AppContainer className="App">
+      <GlobalStyle />
+      {state.lessons.length > 0 ? (
+        <Layout title={`Aula ${state.active.step}`}>
+          <TitleBar lesson={state.active.title} />
+          <LessonsBar lessons={state.lessons} onClick={onSelectLesson} />
+          <S.VideoContainer>
+            <Video
+              src={state.active.video}
+              title={`Aula ${state.active.step} - ${state.active.title}`}
+            />
+            <Resume entries={state.active.resume} />
+          </S.VideoContainer>
+          <S.VideoInfoContainer>
+            <Links entries={state.active.links} />
             <GroupButton url="http://google.com" />
-          </VideoInfoContainer>
-          <BottomResume entries={contents} />
+          </S.VideoInfoContainer>
+          <S.BottomResume entries={state.active.resume} />
         </Layout>
-      </AppContainer>
-    );
-  }
+      ) : null}
+      <Loader active={state.loading} />
+    </S.AppContainer>
+  );
 }
 
 export default App;
