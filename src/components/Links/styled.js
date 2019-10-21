@@ -29,4 +29,5 @@ export const LinkIcon = styled.div`
 
 export const LinkLabel = styled.span`
   font-size: 1.6rem;
+  line-height: 144%;
 `;
