@@ -83,7 +83,7 @@ function App() {
               </S.VideoContainer>
               <S.VideoInfoContainer>
                 <Links entries={state.active.links} />
-                <GroupButton url="http://google.com" />
+                <GroupButton url="https://chat.whatsapp.com/JtsozM4faobDomW8KbqFZ9" />
               </S.VideoInfoContainer>
               <S.BottomResume entries={state.active.resume} />
             </>
