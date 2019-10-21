@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 
 import * as S from './styled';
 
-function LessonsBar({ lessons }) {
+function LessonsBar({ lessons, onClick }) {
   return lessons && lessons.length > 0 ? (
     <S.LessonsBarWrapper>
       {lessons.map(each => (
-        <S.LessonItem className={each.active ? '--active' : ''}>
+        <S.LessonItem
+          key={each.step}
+          className={each.active ? '--active' : ''}
+          onClick={() => onClick(each.step)}
+        >
           <S.LessonItemStep className="featured">{`#${each.step}`}</S.LessonItemStep>
           <S.LessonItemTitle className="title">{each.title}</S.LessonItemTitle>
         </S.LessonItem>
@@ -25,6 +29,7 @@ LessonsBar.propTypes = {
       title: PropTypes.string.isRequired,
     }),
   ),
+  onClick: PropTypes.func.isRequired,
 };
 
 export default LessonsBar;
