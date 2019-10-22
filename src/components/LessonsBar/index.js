@@ -12,8 +12,22 @@ function LessonsBar({ lessons, onClick }) {
           className={each.active ? '--active' : ''}
           onClick={() => onClick(each.step)}
         >
-          <S.LessonItemStep className="featured">{`#${each.step}`}</S.LessonItemStep>
-          <S.LessonItemTitle className="title">{each.title}</S.LessonItemTitle>
+          <S.LessonItemHeader>
+            <S.LessonItemStep className="step featured">{`#${each.step}`}</S.LessonItemStep>
+            <S.LessonItemTitle className="title">
+              {each.title}
+            </S.LessonItemTitle>
+          </S.LessonItemHeader>
+          {!each.active ? (
+            <S.LessonItemAvailable>
+              {each.availableAt !== 'Expirado' ? (
+                <S.LessonItemAvailableSub>
+                  Disponível em:
+                </S.LessonItemAvailableSub>
+              ) : null}
+              {each.availableAt}
+            </S.LessonItemAvailable>
+          ) : null}
         </S.LessonItem>
       ))}
     </S.LessonsBarWrapper>

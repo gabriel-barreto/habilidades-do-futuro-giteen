@@ -59,47 +59,59 @@ export const LessonsBarWrapper = styled.ul`
   }
 `;
 
-const afterItemStep = css`
-  content: 'indisponível!';
-  display: block;
+export const LessonItemHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 65%;
+`;
+
+export const LessonItemAvailableSub = styled.span`
+  color: var(--primaryColor);
+  font-size: 1.2rem;
+  text-align: right;
+`;
+
+export const LessonItemAvailable = styled.p`
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
   color: var(--primaryColor);
   font-size: 1.4em;
   font-weight: 600;
-  position: absolute;
-  right: 16px;
-  text-transform: uppercase;
-  top: 16px;
-  width: fit-content;
+  justify-content: center;
+  line-height: 144%;
+  text-align: right;
+  width: 40%;
 `;
 
 export const LessonItem = styled.li`
+  align-items: center;
   background-color: var(--dark);
   border-radius: 4px;
-  cursor: not-allowed;
   box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.24);
+  cursor: not-allowed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 1.6rem;
   position: relative;
   transition: background-color 400ms;
   z-index: 1;
   will-change: background-color;
 
-  &:not(.--active) {
-    ::after {
-      ${afterItemStep}
-    }
-  }
-
   &.--active {
     background-color: var(--primaryColor);
     cursor: pointer;
-    > span,
-    > p {
+    .step,
+    .title {
       color: var(--dakest);
     }
     :hover {
       background-color: var(--darkest);
-      > span,
-      > p {
+      .step,
+      .title {
         color: var(--primaryColor);
       }
     }
@@ -110,7 +122,8 @@ export const LessonItemTitle = styled.p`
   color: rgba(255, 200, 19, 0.4);
   font-size: 1.6rem;
   font-weight: 700;
-  margin: 0.8rem 0 0 0;
+  line-height: 128%;
+  margin: 0.4rem 0 0 0;
   transition: color 400ms;
   text-transform: uppercase;
 `;
