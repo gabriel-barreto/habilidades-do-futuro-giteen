@@ -1,6 +1,6 @@
 import $http from './http.service';
 
-const baseURL = '/lesson';
+const baseURL = '/lessons';
 
 const fetch = () =>
   $http
