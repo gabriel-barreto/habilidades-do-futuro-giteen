@@ -13,9 +13,10 @@ export const NotificationWrapper = styled.section`
   position: fixed;
   right: 0;
   top: 0;
-  transform: opacity 400ms, visibility 400ms;
+  transition: opacity 400ms, visibility 400ms;
   visibility: hidden;
   width: 100%;
+  will-change: opacity, visibility;
   z-index: 9;
 
   @media (min-width: 1024px) {
