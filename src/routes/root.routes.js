@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { Home } from '../pages';
+import { Home, Login } from '../pages';
 
 export default [
+  {
+    name: 'Login',
+    path: '/entrar',
+    component: props => <Login {...props} />,
+  },
   {
     name: 'home',
     path: '/',
