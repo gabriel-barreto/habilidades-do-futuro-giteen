@@ -5,9 +5,6 @@ const login = payload =>
   $http
     .post('/auth', payload)
     .then(res => res.data)
-    .then($store.set)
-    .catch(err => {
-      throw err;
-    });
+    .then($store.set);
 
 export default { login };
