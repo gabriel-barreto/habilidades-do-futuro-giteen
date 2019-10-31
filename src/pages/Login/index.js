@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { $store, $auth } from '../../services';
+
+import Notification from '../../components/Notification';
+import Loader from '../../components/Loader';
 
 import * as S from './styled';
 
+const initialState = {
+  notification: {
+    active: false,
+    timeout: 5000,
+    title: '',
+    content: '',
+  },
+  loading: false,
+};
+
 function Login() {
+  const [state, setState] = useState(initialState);
+
+  function onLoad() {
+    $store.clean();
+  }
+
   function onSubmitHandler(e) {
     e.preventDefault();
 
@@ -12,9 +33,20 @@ function Login() {
         .map(each => [each.id, each.value]),
     );
 
-    return payload;
+    $auth
+      .login(payload)
+      .then(console.log)
+      .catch(console.log);
   }
 
+  function onNotificationClose() {
+    setState(prev => ({
+      ...prev,
+      notification: { ...prev.notification, active: false },
+    }));
+  }
+
+  useEffect(onLoad, []);
   return (
     <S.LoginLayout title="Entrar">
       <S.Wrapper>
@@ -48,6 +80,8 @@ function Login() {
           <S.SubmitButton type="submit">Entrar</S.SubmitButton>
         </S.Form>
       </S.Wrapper>
+      <Notification {...state.notification} onClose={onNotificationClose} />
+      <Loader active={state.loading} />
     </S.LoginLayout>
   );
 }
