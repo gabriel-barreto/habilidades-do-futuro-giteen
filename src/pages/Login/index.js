@@ -33,10 +33,25 @@ function Login() {
         .map(each => [each.id, each.value]),
     );
 
+    setState(prev => ({ ...prev, loading: true }));
     $auth
       .login(payload)
       .then(console.log)
-      .catch(console.log);
+      .catch(err => {
+        console.log(err.data);
+
+        const defaultMsg =
+          'Ocorreu um erro ao tentar autorizar sua conta, por favor, verifique os dados e tente novamente.';
+        const title = 'Ooops...';
+        const content =
+          err.status === 500 ? defaultMsg : err.data.message || defaultMsg;
+
+        return setState(prev => ({
+          ...prev,
+          notification: { ...prev.notification, active: true, title, content },
+        }));
+      })
+      .finally(() => setState(prev => ({ ...prev, loading: false })));
   }
 
   function onNotificationClose() {
