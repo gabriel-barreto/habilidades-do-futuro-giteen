@@ -17,10 +17,10 @@ $http.interceptors.response.use(
   err => {
     if (AppConfig.mode === 'development') {
       console.warn('Fail Request');
-      console.log(err.toJSON());
+      console.log(err.response);
     }
 
-    return err;
+    throw err.response;
   },
 );
 
