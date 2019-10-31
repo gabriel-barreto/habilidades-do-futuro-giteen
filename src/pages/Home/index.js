@@ -41,23 +41,19 @@ function HomePage() {
         };
         setState(prev => ({ ...prev, active, lessons: payload }));
       })
-      .catch(err => {
-        console.log(err);
-        alert(
-          'Ocorreu um erro ao tentar recuperar as aulas, por favor, tente novamente mais tarde!',
-        );
+      .catch(() => {
+        const title = 'Ooops...';
+        const content =
+          'Ocorreu um erro ao tentar recuperar as aulas, por favor, tente novamente mais tarde!';
+        const timeout = 6000;
+        setState(prev => ({
+          ...prev,
+          notification: { ...prev, title, content, timeout },
+        }));
       })
       .finally(() => {
         setState(prev => ({ ...prev, loading: false }));
       });
-
-    setTimeout(() => {
-      console.log('Activating notification...');
-      setState(prev => ({
-        ...prev,
-        notification: { ...prev.notification, active: true },
-      }));
-    }, 3000);
   }, []);
 
   function onNotificationClose() {
