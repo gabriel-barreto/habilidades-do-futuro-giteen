@@ -38,7 +38,7 @@ function Login({ history }) {
     $auth
       .login(payload)
       .then(() => {
-        history.push('/');
+        history.push('/minhas-aulas');
       })
       .catch(err => {
         console.log(err.data);
