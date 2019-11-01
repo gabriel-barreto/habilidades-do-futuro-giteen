@@ -54,7 +54,7 @@ export const Wrapper = styled.section`
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.32);
   margin: 0 auto;
   max-width: 48rem;
-  width: 80%;
+  width: 92%;
 `;
 
 export const Header = styled.div`
