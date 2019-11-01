@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { App } from '../../config';
 import { $lesson, $store } from '../../services';
 
 import Lesson from '../../components/Lesson';
@@ -25,31 +26,39 @@ function HomePage({ history }) {
   });
 
   useEffect(() => {
-    if ($store.get().token) return history.push('/minhas-aulas');
-
-    setState(prev => ({ ...prev, loading: true }));
-    return $lesson
-      .fetch()
-      .then(payload => {
-        const active = payload.find(each => each.active) || {
-          step: null,
-          title: '',
-        };
-        setState(prev => ({ ...prev, active, lessons: payload }));
-      })
-      .catch(() => {
-        const title = 'Ooops...';
-        const content =
-          'Ocorreu um erro ao tentar recuperar as aulas, por favor, tente novamente mais tarde!';
-        const timeout = 6000;
-        setState(prev => ({
-          ...prev,
-          notification: { ...prev, title, content, timeout },
-        }));
-      })
-      .finally(() => {
-        setState(prev => ({ ...prev, loading: false }));
-      });
+    if ($store.get().token) {
+      history.push(`${App.publicURL}/minhas-aulas`);
+    } else {
+      setState(prev => ({ ...prev, loading: true }));
+      $lesson
+        .fetch()
+        .then(payload => {
+          const active = payload.find(each => each.active) || {
+            step: null,
+            title: '',
+          };
+          setState(prev => ({ ...prev, active, lessons: payload }));
+        })
+        .catch(() => {
+          const title = 'Ooops...';
+          const content =
+            'Ocorreu um erro ao tentar recuperar as aulas, por favor, tente novamente mais tarde!';
+          const timeout = 6000;
+          setState(prev => ({
+            ...prev,
+            notification: {
+              ...prev.notification,
+              active: true,
+              title,
+              content,
+              timeout,
+            },
+          }));
+        })
+        .finally(() => {
+          setState(prev => ({ ...prev, loading: false }));
+        });
+    }
   }, []);
 
   function onNotificationClose() {
@@ -80,7 +89,7 @@ function HomePage({ history }) {
   return (
     <main id="home" className="home">
       {state.lessons.length > 0 ? (
-        <Lesson {...state} onSelectLesson={onSelectLesson} />
+        <Lesson {...state} onSelectLesson={onSelectLesson} onlyActiveLessons />
       ) : null}
       <Notification {...state.notification} onClose={onNotificationClose} />
       <Loader active={state.loading} />

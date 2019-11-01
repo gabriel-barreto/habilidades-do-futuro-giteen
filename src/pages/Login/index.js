@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { App } from '../../config';
+
 import { $store, $auth } from '../../services';
 
 import Notification from '../../components/Notification';
@@ -38,11 +40,9 @@ function Login({ history }) {
     $auth
       .login(payload)
       .then(() => {
-        history.push('/minhas-aulas');
+        history.push(`${App.publicURL}/minhas-aulas`);
       })
       .catch(err => {
-        console.log(err.data);
-
         const defaultMsg =
           'Ocorreu um erro ao tentar autorizar sua conta, por favor, verifique os dados e tente novamente.';
         const title = 'Ooops...';
