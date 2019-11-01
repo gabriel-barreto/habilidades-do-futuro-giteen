@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { $store } from '../../services';
+
 import * as S from './styled';
 import Content from './content';
 
@@ -16,6 +18,9 @@ function TitleBar({ lesson }) {
           </>
         ) : null}
       </S.TitleBarTitleWrapper>
+      {$store.get().token ? null : (
+        <S.LoginButton to="/entrar">Entrar</S.LoginButton>
+      )}
     </S.TitleBarWrapper>
   );
 }
