@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { App as Config } from './config';
+
 import Routes from './routes';
 
 import { GlobalStyle } from './styles';
@@ -13,7 +15,7 @@ const AppContainer = styled.div`
 
 function App() {
   return (
-    <Router>
+    <Router basename={Config.publicURL}>
       <AppContainer className="App">
         <GlobalStyle />
         <Switch>
