@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { $store, $auth } from '../../services';
 
@@ -17,7 +18,7 @@ const initialState = {
   loading: false,
 };
 
-function Login() {
+function Login({ history }) {
   const [state, setState] = useState(initialState);
 
   function onLoad() {
@@ -36,7 +37,9 @@ function Login() {
     setState(prev => ({ ...prev, loading: true }));
     $auth
       .login(payload)
-      .then(console.log)
+      .then(() => {
+        history.push('/');
+      })
       .catch(err => {
         console.log(err.data);
 
@@ -100,5 +103,11 @@ function Login() {
     </S.LoginLayout>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Login;
