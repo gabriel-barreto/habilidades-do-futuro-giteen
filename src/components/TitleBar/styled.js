@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Link } from 'react-router-dom';
+
 export const TitleBarWrapper = styled.div`
   --lg: calc((100vw - 1200px) / 2);
   --xl: calc((100vw - 1400px) / 2);
@@ -66,4 +68,21 @@ export const TitleBarBrand = styled.img`
   @media (min-width: 1600px) {
     width: 20rem;
   }
+`;
+
+export const LoginButton = styled(Link)`
+  align-items: center;
+  background-color: var(--auxColor);
+  border-radius: 2px;
+  color: var(--darkest);
+  cursor: pointer;
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: 600;
+  height: 4.4rem;
+  justify-content: center;
+  padding: 0.8rem;
+  text-align: center;
+  text-transform: uppercase;
+  width: fit-content;
 `;
