@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import { $lesson } from '../../services';
+import { $lesson, $store } from '../../services';
 
-import * as S from './styled';
-import GroupButton from '../../components/GroupButton';
-import Layout from '../../components/Layout';
-import LessonsBar from '../../components/LessonsBar';
-import Links from '../../components/Links';
+import Lesson from '../../components/Lesson';
 import Loader from '../../components/Loader';
 import Notification from '../../components/Notification';
-import Video from '../../components/Video';
-import Resume from '../../components/Resume';
-import TitleBar from '../../components/TitleBar';
 
-function HomePage() {
+function HomePage({ history }) {
   const [state, setState] = useState({
     lessons: [],
     active: {
@@ -31,8 +25,10 @@ function HomePage() {
   });
 
   useEffect(() => {
+    if ($store.get().token) return history.push('/minhas-aulas');
+
     setState(prev => ({ ...prev, loading: true }));
-    $lesson
+    return $lesson
       .fetch()
       .then(payload => {
         const active = payload.find(each => each.active) || {
@@ -84,31 +80,18 @@ function HomePage() {
   return (
     <main id="home" className="home">
       {state.lessons.length > 0 ? (
-        <Layout title={state.active.step ? `Aula ${state.active.step}` : ''}>
-          <TitleBar lesson={state.active.title ? state.active.title : ''} />
-          <LessonsBar lessons={state.lessons} onClick={onSelectLesson} />
-          {state.active.step !== null ? (
-            <>
-              <S.VideoContainer>
-                <Video
-                  src={state.active.video}
-                  title={`Aula ${state.active.step} - ${state.active.title}`}
-                />
-                <Resume entries={state.active.resume} />
-              </S.VideoContainer>
-              <S.VideoInfoContainer>
-                <Links entries={state.active.links} />
-                <GroupButton url="https://chat.whatsapp.com/JtsozM4faobDomW8KbqFZ9" />
-              </S.VideoInfoContainer>
-              <S.BottomResume entries={state.active.resume} />
-            </>
-          ) : null}
-        </Layout>
+        <Lesson {...state} onSelectLesson={onSelectLesson} />
       ) : null}
       <Notification {...state.notification} onClose={onNotificationClose} />
       <Loader active={state.loading} />
     </main>
   );
 }
+
+HomePage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default HomePage;
