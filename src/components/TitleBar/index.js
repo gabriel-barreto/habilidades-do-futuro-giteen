@@ -6,7 +6,7 @@ import { $store } from '../../services';
 import * as S from './styled';
 import Content from './content';
 
-function TitleBar({ lesson }) {
+function TitleBar({ lesson, login }) {
   return (
     <S.TitleBarWrapper>
       <S.TitleBarBrand {...Content.brand} />
@@ -18,15 +18,17 @@ function TitleBar({ lesson }) {
           </>
         ) : null}
       </S.TitleBarTitleWrapper>
-      {$store.get().token ? null : (
-        <S.LoginButton to="/entrar">Entrar</S.LoginButton>
+      {!login ? null : (
+        <S.LoginButton to={$store.get().token ? '/minhas-aulas' : '/entrar'}>
+          Entrar
+        </S.LoginButton>
       )}
     </S.TitleBarWrapper>
   );
 }
 
-TitleBar.propTypes = {
-  lesson: PropTypes.string.isRequired,
-};
+TitleBar.defaultProps = { lesson: '', login: false };
+
+TitleBar.propTypes = { lesson: PropTypes.string, login: PropTypes.bool };
 
 export default TitleBar;
