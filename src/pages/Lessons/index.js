@@ -33,7 +33,8 @@ function LoginPage() {
         const active = payload[0];
         setState(prev => ({ ...prev, active, lessons: payload }));
       })
-      .catch(() => {
+      .catch(err => {
+        console.log(err);
         const title = 'Ooops...';
         const content =
           'Ocorreu um erro ao tentar recuperar as aulas, por favor, tente novamente mais tarde!';
