@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 
 import * as S from './styled';
 
-function LessonsBar({ lessons, onClick }) {
+function LessonsBar({ lessons, onClick, onlyActive }) {
   return lessons && lessons.length > 0 ? (
     <S.LessonsBarWrapper>
       {lessons.map(each => (
         <S.LessonItem
           key={each.step}
-          className={each.active ? '--active' : ''}
+          className={
+            (each.active && onlyActive) || !onlyActive ? '--active' : ''
+          }
           onClick={() => onClick(each.step)}
         >
           <S.LessonItemHeader>
@@ -18,7 +20,7 @@ function LessonsBar({ lessons, onClick }) {
               {each.title}
             </S.LessonItemTitle>
           </S.LessonItemHeader>
-          {!each.active ? (
+          {!each.active && onlyActive ? (
             <S.LessonItemAvailable>
               {each.availableAt !== 'Expirado' ? (
                 <S.LessonItemAvailableSub>
@@ -34,7 +36,7 @@ function LessonsBar({ lessons, onClick }) {
   ) : null;
 }
 
-LessonsBar.defaultProps = { lessons: [] };
+LessonsBar.defaultProps = { lessons: [], onlyActive: true };
 
 LessonsBar.propTypes = {
   lessons: PropTypes.arrayOf(
@@ -44,6 +46,7 @@ LessonsBar.propTypes = {
     }),
   ),
   onClick: PropTypes.func.isRequired,
+  onlyActive: PropTypes.bool,
 };
 
 export default LessonsBar;
