@@ -26,7 +26,6 @@ function LessonsPage() {
   });
 
   useEffect(() => {
-    console.log('lessons page');
     setState(prev => ({ ...prev, loading: true }));
     $students
       .getLessons()

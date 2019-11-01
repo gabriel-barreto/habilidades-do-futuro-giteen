@@ -25,8 +25,6 @@ function HomePage({ history }) {
   });
 
   useEffect(() => {
-    console.log('home page');
-
     if ($store.get().token) {
       history.push('/minhas-aulas');
     } else {
