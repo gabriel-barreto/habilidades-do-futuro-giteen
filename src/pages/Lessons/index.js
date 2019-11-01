@@ -8,7 +8,7 @@ import Lesson from '../../components/Lesson';
 import Loader from '../../components/Loader';
 import Notification from '../../components/Notification';
 
-function LoginPage() {
+function LessonsPage() {
   const [state, setState] = useState({
     lessons: [],
     active: {
@@ -26,6 +26,7 @@ function LoginPage() {
   });
 
   useEffect(() => {
+    console.log('lessons page');
     setState(prev => ({ ...prev, loading: true }));
     $students
       .getLessons()
@@ -33,8 +34,7 @@ function LoginPage() {
         const active = payload[0];
         setState(prev => ({ ...prev, active, lessons: payload }));
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
         const title = 'Ooops...';
         const content =
           'Ocorreu um erro ao tentar recuperar as aulas, por favor, tente novamente mais tarde!';
@@ -91,4 +91,4 @@ function LoginPage() {
   );
 }
 
-export default withGuard(LoginPage);
+export default withGuard(LessonsPage);

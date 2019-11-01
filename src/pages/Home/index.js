@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { App } from '../../config';
 import { $lesson, $store } from '../../services';
 
 import Lesson from '../../components/Lesson';
@@ -26,8 +25,10 @@ function HomePage({ history }) {
   });
 
   useEffect(() => {
+    console.log('home page');
+
     if ($store.get().token) {
-      history.push(`${App.publicURL}/minhas-aulas`);
+      history.push('/minhas-aulas');
     } else {
       setState(prev => ({ ...prev, loading: true }));
       $lesson

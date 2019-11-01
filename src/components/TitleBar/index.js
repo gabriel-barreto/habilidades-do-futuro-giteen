@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { App } from '../../config';
-
 import { $store } from '../../services';
 
 import * as S from './styled';
@@ -21,9 +19,7 @@ function TitleBar({ lesson, login }) {
         ) : null}
       </S.TitleBarTitleWrapper>
       {!login ? null : (
-        <S.LoginButton
-          to={$store.get().token ? `${App.publicURL}/minhas-aulas` : '/entrar'}
-        >
+        <S.LoginButton to={$store.get().token ? '/minhas-aulas' : '/entrar'}>
           Entrar
         </S.LoginButton>
       )}

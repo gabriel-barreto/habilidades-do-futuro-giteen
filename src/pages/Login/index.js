@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { App } from '../../config';
-
 import { $store, $auth } from '../../services';
 
 import Notification from '../../components/Notification';
@@ -40,7 +38,7 @@ function Login({ history }) {
     $auth
       .login(payload)
       .then(() => {
-        history.push(`${App.publicURL}/minhas-aulas`);
+        history.push('/minhas-aula');
       })
       .catch(err => {
         const defaultMsg =
