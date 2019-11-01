@@ -15,7 +15,7 @@ export default [
   },
   {
     name: 'home',
-    path: '',
+    path: '/',
     exact: true,
     component: props => <Home {...props} />,
   },
