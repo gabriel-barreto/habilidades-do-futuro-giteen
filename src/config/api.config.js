@@ -6,7 +6,7 @@ const headers = {
 };
 
 const Configs = {
-  production: { baseURL: 'http://45.77.211.66:5100/api', headers },
+  production: { baseURL: 'http://45.77.211.66:3330/api', headers },
   development: { baseURL: 'http://localhost:3330/api', headers },
 };
 
