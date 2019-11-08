@@ -83,13 +83,14 @@ function Login({ history }) {
           </S.InputGroup>
           <S.InputGroup>
             <S.Label htmlFor="passwd">Senha*:</S.Label>
+            <S.LabelHelper>DDD + Telefone, apenas os números</S.LabelHelper>
             <S.Input
               name="passwd"
               id="passwd"
               type="password"
               minlength="11"
               maxlength="11"
-              placeholder="Lembra do seu CPF?"
+              placeholder="Lembra do seu WhatsApp?"
               required
             />
           </S.InputGroup>
