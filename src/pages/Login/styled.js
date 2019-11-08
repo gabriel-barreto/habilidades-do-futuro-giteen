@@ -23,6 +23,12 @@ export const Label = styled.label`
   font-size: 1.6rem;
 `;
 
+export const LabelHelper = styled.label`
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 1.4rem;
+  margin: 0.64rem 0 0 0;
+`;
+
 export const Input = styled.input`
   background: var(--dark);
   border: none;
